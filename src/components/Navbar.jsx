@@ -1,94 +1,163 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import {FaBars, FaDribbble, FaFacebook, FaTwitter, FaXmark} from 'react-icons/fa6'
+import { FaBars, FaMoon, FaSun, FaXmark } from 'react-icons/fa6'
 import Modal from './Modal'
+import useBodyScrollLock from '../hooks/useBodyScrollLock'
+import useCloseOnMinWidth from '../hooks/useCloseOnMinWidth'
+import useEscapeKey from '../hooks/useEscapeKey'
+import useDarkMode from '../hooks/useDarkMode'
 
-
+const navItems = [
+  { path: '/', link: 'Home' },
+  { path: '/services', link: 'Services' },
+  { path: '/about', link: 'About' },
+  { path: '/blogs', link: 'Blogs' },
+  { path: '/contact', link: 'Contact' },
+]
 
 const Navbar = () => {
-  
-   const [isModalOpen, setIsModalOpen] = useState(false)
-   const [showMenu, setShowMenu]=useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
+  const { isDarkMode, toggleDarkMode } = useDarkMode()
 
-   const toggleMenu = () =>{
-    setShowMenu(!showMenu);
-   }
+  const closeMenu = useCallback(() => {
+    setShowMenu(false)
+  }, [])
 
-   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const closeAllOverlays = useCallback(() => {
+    closeMenu()
+    setIsModalOpen(false)
+  }, [closeMenu])
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  useBodyScrollLock(showMenu)
+  useCloseOnMinWidth(768, closeMenu)
+  useEscapeKey(closeAllOverlays)
 
-    // nav items 
-    const navItems = [
-        {path:'/', link: 'Home'},
-        {path:'/services', link: 'Services'},
-        {path:'/about', link: 'About'},
-        {path:'/blogs', link: 'Blogs'},
-        {path:'/contact', link: 'Contact'},
-    ]
-
-    {/* MOdal details  */} 
-    const openModal = () => {
-        setIsModalOpen(true)
-    }
-    const closeModal = () => {
-        setIsModalOpen(false)   
-    }
- 
   return (
-    <header className='bg-gradient-to-r from-[#00003f] absolute via-orange-900 to-dark-blue-500 via-to-b from-[#00003f] via-orange-900 to-[#00003f] z-50 text-white sticky top-0 left-0 right-0 '>
-        <nav className=' max-w-9xl mx-auto flex justify-between items-center h-32 '>
-            {/* <a href='/' className='text-xl font-bold text-white'>WK<span className='text-orange-600'>Marketing</span></a> */}
-            <img className='md:ml-[14rem] ' src='logo2.png' />
+    <header className='sticky top-0 left-0 right-0 z-50 text-white bg-gradient-to-r from-[#00003f] via-orange-900 to-[#00003f]'>
+      <nav
+        className='max-w-7xl mx-auto flex justify-between items-center h-20 sm:h-24 px-4 sm:px-6 lg:px-8'
+        aria-label='Primary'
+      >
+        <img className='h-10 sm:h-12 w-auto' src='logo2.png' alt='Digital Eggheads logo' />
 
+        <ul className='hidden md:flex items-center gap-6 lg:gap-8 text-base lg:text-lg'>
+          {navItems.map(({ path, link }) => (
+            <li className='text-white hover:text-orange-500 transition-colors' key={path}>
+              <NavLink to={path}>{link}</NavLink>
+            </li>
+          ))}
+        </ul>
 
-            {/* nav for large device  */}
-            <ul className='md:flex gap-12 text-lg hidden md:hidden '>
-                {
-                    navItems.map(({path, link}) => <li className='text-white hover:text-orange-500 ' key={path}>
-                        <NavLink to={path}>{link}</NavLink>
-                    </li>)
-                }
-            </ul>
+        <div className='hidden lg:flex text-white gap-4 items-center'>
+          <a href='/' className='hover:text-orange-500 transition-colors'>🔥Apply - Hiring-Now</a>
+          <button
+            type='button'
+            onClick={toggleDarkMode}
+            className='micro-btn h-11 w-11 rounded-lg border border-white/40 flex items-center justify-center'
+            aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {isDarkMode ? <FaSun aria-hidden='true' /> : <FaMoon aria-hidden='true' />}
+          </button>
+          <button
+            type='button'
+            onClick={() => setIsModalOpen(true)}
+            className='micro-btn px-6 py-2 font-medium rounded-lg bg-orange-600 h-14 hover:bg-orange-700 duration-300 flex'
+            aria-haspopup='dialog'
+            aria-label="Open conversation modal"
+          >
+            <span className='mt-2'>Let's start the conversition</span>
+          </button>
+        </div>
 
-            {/* menu icons  */}
-            <div className='text-white lg:flex ml-[10rem] gap-4 items-center sm:hidden hidden md:hidden grow ml-80'>
-                <a href='/' className='hover:text-orange-500 ml-80'>🔥Apply - Hiring-Now</a>
-                
-                <button  onClick={openModal} className='px-6 py-2 font-medium rounded bg-orange-600 h-14 rounded-lg hover:bg-orange-700 hover:text-white-600 duration-500 flex '><span className='mt-2'>Let's start the conversition</span></button>
-            </div>
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-            {/* our modal component is here  */} 
-            <Modal isOpen={isModalOpen} onClose={closeModal} />
+        <button
+          type='button'
+          onClick={toggleDarkMode}
+          className='micro-btn lg:hidden h-12 w-12 bg-white rounded-lg flex items-center justify-center text-black'
+          aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {isDarkMode ? <FaSun aria-hidden='true' /> : <FaMoon aria-hidden='true' />}
+        </button>
 
+        <button
+          type='button'
+          onClick={() => setShowMenu((prev) => !prev)}
+          className='md:hidden h-12 w-12 bg-white rounded-lg flex items-center justify-center'
+          aria-label={showMenu ? 'Close menu' : 'Open menu'}
+          aria-expanded={showMenu}
+          aria-controls='mobile-menu'
+        >
+          {showMenu ? (
+            <FaXmark className='w-7 h-7 text-black' aria-hidden='true' />
+          ) : (
+            <FaBars className='w-7 h-7 text-black' aria-hidden='true' />
+          )}
+        </button>
+      </nav>
 
-            {/* mobile menu btn , display mobile screen  */}
-            <div className='h-14 w-14 bg-white  md:mr-[24rem]  rounded-lg flex-none'> 
-            <button onClick={toggleMenu} className='cursor-pointer '>
-                {
-                    showMenu ? <FaXmark  className='w-7 h-7 mt-3.5 ml-3.5 text-black '/> : <FaBars   className='w-7 h-7 mt-3.5 ml-3.5 text-black '/>
-                }
-             </button>
-            </div>
-        </nav>
+      <div
+        className={`md:hidden fixed inset-0 z-40 transition-opacity duration-300 ${
+          showMenu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <button
+          type='button'
+          className='absolute inset-0 bg-black/50'
+          aria-label='Close menu backdrop'
+          onClick={closeMenu}
+        />
 
-           {/* menu items only for mobile  */}
-              <ul className={`relative gap-12 text-lg z-50 block space-y-4 sm:bg-red-400 px-60 py-60 w-full h-[90vh] fixed mt-30 bg-gradient-to-r from-[#00003f]  via-orange-900 to-dark-blue-500 via-to-b from-[#00003f] via-orange-900 to-[#00003f]  ${showMenu ? "fixed top-0 left-0 w-full transition-all ease-out duration-150" : "hidden"}`}>
-                {
-                    navItems.map(({path, link}) => <li className='text-white  ' key={path}>
-                        <NavLink className={`nav`} onClick={() => setShowMenu(false)} to={path}>{link}</NavLink>
-                 <li className='hidden'>
-                  <a href="/custom-link">Custom Link</a>
-                    </li>
-                    </li>)
-                    
-                } 
-                 
-               
-             </ul>
-             
+        <aside
+          id='mobile-menu'
+          role='dialog'
+          aria-modal='true'
+          aria-labelledby='mobile-menu-title'
+          className={`absolute top-0 right-0 h-full w-[82%] max-w-sm bg-gradient-to-b from-[#00003f] via-orange-900 to-[#00003f] px-8 py-24 shadow-2xl transition-transform duration-300 ease-out ${
+            showMenu ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          <h2 id='mobile-menu-title' className='text-2xl font-semibold mb-8'>Menu</h2>
+          <ul className='space-y-6 text-lg'>
+            {navItems.map(({ path, link }) => (
+              <li className='text-white' key={path}>
+                <NavLink
+                  className='hover:text-orange-300 transition-colors'
+                  onClick={closeMenu}
+                  to={path}
+                >
+                  {link}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          <button
+            type='button'
+            onClick={toggleDarkMode}
+            className='micro-btn mt-10 w-full px-5 py-3 rounded-lg border border-white/40 hover:bg-white/10 transition-colors font-semibold flex items-center justify-center gap-2'
+            aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {isDarkMode ? <FaSun aria-hidden='true' /> : <FaMoon aria-hidden='true' />}
+            {isDarkMode ? 'Light mode' : 'Dark mode'}
+          </button>
+
+          <button
+            type='button'
+            onClick={() => {
+              closeMenu()
+              setIsModalOpen(true)
+            }}
+            className='micro-btn mt-10 w-full px-5 py-3 rounded-lg bg-orange-600 hover:bg-orange-700 transition-colors font-semibold'
+            aria-haspopup='dialog'
+          >
+            Let's start the conversition
+          </button>
+        </aside>
+      </div>
     </header>
   )
 }

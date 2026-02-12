@@ -15,7 +15,7 @@ const Banner = () => {
         </p>
         <Typed
               className=' font-bold pl-2 md:pl-4 text-orange-600'
-              strings={['Impact', 'Change', 'Innovation']}
+              strings={['Impact', 'Growth', 'Momentum']}
               typeSpeed={20}
               backSpeed={25}
              loop
@@ -23,20 +23,20 @@ const Banner = () => {
 
       </div>
       <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-xl mt-10 text-white">
-          We’re a digital marketing agency that helps you unlock your growth potential with holistic solutions, serving your <br/> unique business needs, by channeling disruptive ideas into actionable success strategies.</p>
+          We help ambitious brands grow faster through integrated marketing, creative storytelling, and performance-led digital strategies tailored to your business goals.</p>
       {/* <button className='border hover:bg-orange-500 hover:text-white w-[200px] transition-all duration-200 ease-in rounded-md font-medium my-6 mx-auto py-3 text-black'>Get Started</button> */}
       
     <div className='flex justify-center items-center gap-10 mt-10'>
     <span className='text-white'>200+<span className='ml-10 text-gray-400'>|</span></span>
-      <span className='text-white '>💌Review<span className='ml-10 text-gray-400'>|</span></span>
-      <span className='text-white '>💥Rating</span>
+      <span className='text-white '>💼Brands<span className='ml-10 text-gray-400'>|</span></span>
+      <span className='text-white '>🏆Results</span>
     </div>
     <div className='justify-center items-center gap-20 flex '>
-    <span className='text-white text-gray-400 text-xs '>Globle Clients</span>
+    <span className='text-white text-gray-400 text-xs '>Global Clients</span>
       <span className='text-white text-xs '>★★★★☆<span className='text-gray-400'>4.8/5</span></span>
-      <span className='text-white text-xs '>★★★★☆<span className='text-gray-400'>4.9/5</span></span>
+      <span className='text-white text-xs '>★★★★☆<span className='text-gray-400'>Trusted Partner</span></span>
     </div>
-    <p className='mt-20 text-white'>We’ve worked with some of the biggest brands</p>
+    <p className='mt-20 text-white'>Trusted by growth-focused teams across industries</p>
 
       
 

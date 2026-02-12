@@ -9,8 +9,8 @@ import { AiFillCodepenCircle, AiFillTwitterCircle } from 'react-icons/ai'
 const Footer = () => {
   return (
     <div className='bg-gray-200'>
-    <div className='w-full bg-white-500 py-24 px-24  max-w-7xl mx-auto  '>
-   <div className='md:max-w-[1480px] m-auto grid  md:grid-cols-5 max-[780px]:grid-cols-2  gap-8 max-w-[600px]  px-4 md:px-0'>
+    <div className='w-full bg-white-500 py-16 sm:py-24 px-4 sm:px-8 max-w-7xl mx-auto'>
+   <div className='md:max-w-[1480px] m-auto grid grid-cols-2 lg:grid-cols-5 gap-8 max-w-[600px] md:max-w-full px-0'>
             
    <div className=''>
    <h1 className='text-4xl font-bold text-black'>Digital <br />Eggheads</h1>
@@ -35,7 +35,7 @@ const Footer = () => {
        </ul>
    </div>
    <div>
-       <h3 className='text-3xl font-bold text-black'>Project</h3>
+       <h3 className='text-3xl font-bold text-black'>Initiatives</h3>
        <ul className='py-6 text-[#6D737A]'>
            <li className='py-2'>Digital Ninja Training</li>
            <li className='py-2'>Mainstream Pakistan</li>
@@ -44,8 +44,8 @@ const Footer = () => {
    <div>
        <h3 className='text-3xl font-bold text-black'>Connect</h3>
        <ul className='py-6 text-[#6D737A]'>
-           <li className='py-2'>Get in Touch</li>
-           <li className='py-2'>Work With Us</li>
+           <li className='py-2'>Contact</li>
+           <li className='py-2'>Careers</li>
        </ul>
    </div>
 </div>
@@ -59,7 +59,7 @@ const Footer = () => {
 <AiFillTwitterCircle/>
 
 </div>
-<p className='justify-center text-center sm:text-left mt-8 items-center md:ml-[22rem] mt-8 text-gray-600'>© Digital Eggheads. All rights reserved. - Privacy Policy</p>
+<p className='text-center mt-8 text-gray-600'>© Digital Eggheads. All rights reserved. Privacy Policy</p>
 </div>
 </div>
   )

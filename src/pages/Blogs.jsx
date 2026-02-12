@@ -1,26 +1,25 @@
 import React from 'react'
+import Seo from '../components/Seo'
 import Scard from '../components/Scard'
-
+import HeroOverlay from '../components/HeroOverlay'
 
 const Blogs = () => {
   return (
+    <>
+      <Seo title="Digital Eggheads | Blogs" description="Read the latest Digital Eggheads insights, growth stories, and updates from our marketing journey." url="https://digitaleggheads.com/blogs" />
     <div>
-       <div className="relative py-[7rem] text-center bg-gradient-to-r from-[#00003f] absolute via-orange-900 to-dark-blue-500 via-to-b from-[#00003f] via-orange-900 to-[#00003f]">
-       <div className="w-full lg:w-1/2 flex text-black flex-col md:flex relative z-10 ml-[27rem] text-white ">
-      <h1 className="text-xl md:text-7xl sm:text-3xl font-bold">Blogs</h1>
-     <p className='mt-10 text-2xl'>From SEO to PPC, we offer comprehensive digital marketing services to fuel your growth.</p>
-   </div>
-  </div>
+      <HeroOverlay
+        className='py-20 sm:py-24 md:py-[7rem] bg-gradient-to-r from-[#00003f] via-orange-900 to-[#00003f]'
+        imageSrc='https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1600&q=80'
+        title='Blogs'
+        description='Insights, playbooks, and behind-the-scenes lessons from campaigns, content, and performance marketing.'
+      />
 
-
-      {/* all blogs container   */}
-      <div className='max-w-7xl mx-auto'>
-        {/* <BlogPage/> */}
-        {/* <Courses/> */}
-
+      <div className='max-w-7xl mx-auto px-4'>
+        <Scard />
       </div>
-      <Scard/>
     </div>
+    </>
   )
 }
 
