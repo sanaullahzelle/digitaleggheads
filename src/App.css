@@ -181,3 +181,61 @@ div h3{
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+
+.micro-btn {
+  @apply transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0;
+}
+
+.interactive-card {
+  @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl;
+}
+
+
+:where(a, button, input, textarea, select, [role='button'], [role='menuitem']):focus-visible {
+  outline: 3px solid #f97316;
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark body {
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+html.dark .bg-white,
+html.dark .bg-gray-100,
+html.dark .bg-gray-200 {
+  background-color: #111827 !important;
+}
+
+html.dark .text-black,
+html.dark .text-gray-700,
+html.dark .text-gray-600,
+html.dark .text-gray-500,
+html.dark .text-[#6D737A] {
+  color: #e5e7eb !important;
+}
+
+html.dark .border,
+html.dark .border-gray-300,
+html.dark .border-black {
+  border-color: #374151 !important;
+}
